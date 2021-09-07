@@ -1,0 +1,52 @@
+package edu;
+
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.Socket;
+import java.net.UnknownHostException;
+import java.util.Scanner;
+
+public class TCPClient {
+	private static Socket client;
+	public TCPClient() throws UnknownHostException, IOException{
+	super();
+	client = new Socket("localhost", 9999);
+	new Thread(new Receive()).start();
+	}
+	public class Receive implements Runnable {
+		private boolean flag = true;
+		public Receive() {
+		super();
+		// TODO Auto-generated constructor stub
+		}
+	@Override
+	public void run() {
+		// TODO 自动生成的方法存根
+		DataInputStream dis = null;
+		while(flag) {
+		try {
+		dis = new DataInputStream(client.getInputStream());
+		String msgFromServer = dis.readUTF();
+		System.out.println(msgFromServer);
+		} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+		flag = false;
+		}}}
+	}
+	
+	public static void main(String[] args) throws UnknownHostException, IOException{
+		// TODO 自动生成的方法存根
+		new TCPClient();
+		DataOutputStream dos = new DataOutputStream(client.getOutputStream());
+		System.out.println("请输入昵称：");
+		Scanner sc = new Scanner(System.in);
+		String name = sc.nextLine();
+		dos.writeUTF(name);
+		boolean flag = true;
+		while(flag) {
+		String msg = sc.nextLine();
+		dos.writeUTF(msg);}
+	}
+}
