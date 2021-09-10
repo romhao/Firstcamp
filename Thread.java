@@ -16,3 +16,8 @@ package thread;
 	/*public Thread(Runnable target,String name) {
 		Runnable.run();
 	}
+          this.x=x;
+        //public static void sleep(long millis) throws InterruptedException
+          public static void sleep(long millis) throws InterruptedException{
+          Runnable.run();
+        }
